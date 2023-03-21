@@ -1,3 +1,0 @@
-class_overrides:
-    BodyAuthDbBearerLoginV1AuthJwtLoginPost:
-        class_name: ShortName
