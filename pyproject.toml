@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "openapi-client"
+name = "openaws-client"
 version = "0.1.0"
 description = "A client library for accessing Stadsarkivet"
 
@@ -7,9 +7,9 @@ authors = []
 
 readme = "README.md"
 packages = [
-    {include = "openapi_client"},
+    {include = "openaws_client"},
 ]
-include = ["CHANGELOG.md", "openapi_client/py.typed"]
+include = ["CHANGELOG.md", "openaws_client/py.typed"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
