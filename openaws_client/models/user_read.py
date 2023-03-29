@@ -6,8 +6,8 @@ from ..models.user_flag import UserFlag
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.user_permissions import UserPermissions
     from ..models.user_read_data import UserReadData
-    from ..models.user_roles import UserRoles
 
 
 T = TypeVar("T", bound="UserRead")
@@ -20,7 +20,7 @@ class UserRead:
     Attributes:
         email (str):
         data (UserReadData):
-        roles (UserRoles):
+        permissions (UserPermissions):
         flags (UserFlag): To check if a user has a flag, use bitmasking:
             >>> assert user.flags & UserFlag.EMPLOYEE
             Add a flag:
@@ -37,7 +37,7 @@ class UserRead:
 
     email: str
     data: "UserReadData"
-    roles: "UserRoles"
+    permissions: "UserPermissions"
     flags: UserFlag
     id: Union[Unset, Any] = UNSET
     is_active: Union[Unset, bool] = True
@@ -49,7 +49,7 @@ class UserRead:
         email = self.email
         data = self.data.to_dict()
 
-        roles = self.roles.to_dict()
+        permissions = self.permissions.to_dict()
 
         flags = self.flags.value
 
@@ -64,7 +64,7 @@ class UserRead:
             {
                 "email": email,
                 "data": data,
-                "roles": roles,
+                "permissions": permissions,
                 "flags": flags,
             }
         )
@@ -81,15 +81,15 @@ class UserRead:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.user_permissions import UserPermissions
         from ..models.user_read_data import UserReadData
-        from ..models.user_roles import UserRoles
 
         d = src_dict.copy()
         email = d.pop("email")
 
         data = UserReadData.from_dict(d.pop("data"))
 
-        roles = UserRoles.from_dict(d.pop("roles"))
+        permissions = UserPermissions.from_dict(d.pop("permissions"))
 
         flags = UserFlag(d.pop("flags"))
 
@@ -104,7 +104,7 @@ class UserRead:
         user_read = cls(
             email=email,
             data=data,
-            roles=roles,
+            permissions=permissions,
             flags=flags,
             id=id,
             is_active=is_active,

@@ -7,7 +7,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.user_create_data import UserCreateData
-    from ..models.user_roles import UserRoles
+    from ..models.user_permissions import UserPermissions
 
 
 T = TypeVar("T", bound="UserCreate")
@@ -23,7 +23,7 @@ class UserCreate:
         is_superuser (Union[Unset, bool]):
         is_verified (Union[Unset, bool]):
         data (Union[Unset, UserCreateData]):
-        roles (Union[Unset, UserRoles]):
+        permissions (Union[Unset, UserPermissions]):
         flags (Union[Unset, UserFlag]): To check if a user has a flag, use bitmasking:
             >>> assert user.flags & UserFlag.EMPLOYEE
             Add a flag:
@@ -40,7 +40,7 @@ class UserCreate:
     is_superuser: Union[Unset, bool] = False
     is_verified: Union[Unset, bool] = False
     data: Union[Unset, "UserCreateData"] = UNSET
-    roles: Union[Unset, "UserRoles"] = UNSET
+    permissions: Union[Unset, "UserPermissions"] = UNSET
     flags: Union[Unset, UserFlag] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -54,9 +54,9 @@ class UserCreate:
         if not isinstance(self.data, Unset):
             data = self.data.to_dict()
 
-        roles: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.roles, Unset):
-            roles = self.roles.to_dict()
+        permissions: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.permissions, Unset):
+            permissions = self.permissions.to_dict()
 
         flags: Union[Unset, int] = UNSET
         if not isinstance(self.flags, Unset):
@@ -78,8 +78,8 @@ class UserCreate:
             field_dict["is_verified"] = is_verified
         if data is not UNSET:
             field_dict["data"] = data
-        if roles is not UNSET:
-            field_dict["roles"] = roles
+        if permissions is not UNSET:
+            field_dict["permissions"] = permissions
         if flags is not UNSET:
             field_dict["flags"] = flags
 
@@ -88,7 +88,7 @@ class UserCreate:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.user_create_data import UserCreateData
-        from ..models.user_roles import UserRoles
+        from ..models.user_permissions import UserPermissions
 
         d = src_dict.copy()
         email = d.pop("email")
@@ -108,12 +108,12 @@ class UserCreate:
         else:
             data = UserCreateData.from_dict(_data)
 
-        _roles = d.pop("roles", UNSET)
-        roles: Union[Unset, UserRoles]
-        if isinstance(_roles, Unset):
-            roles = UNSET
+        _permissions = d.pop("permissions", UNSET)
+        permissions: Union[Unset, UserPermissions]
+        if isinstance(_permissions, Unset):
+            permissions = UNSET
         else:
-            roles = UserRoles.from_dict(_roles)
+            permissions = UserPermissions.from_dict(_permissions)
 
         _flags = d.pop("flags", UNSET)
         flags: Union[Unset, UserFlag]
@@ -129,7 +129,7 @@ class UserCreate:
             is_superuser=is_superuser,
             is_verified=is_verified,
             data=data,
-            roles=roles,
+            permissions=permissions,
             flags=flags,
         )
 

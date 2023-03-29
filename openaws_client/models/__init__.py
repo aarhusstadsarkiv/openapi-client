@@ -27,11 +27,12 @@ from .status_flag import StatusFlag
 from .user_create import UserCreate
 from .user_create_data import UserCreateData
 from .user_flag import UserFlag
+from .user_permissions import UserPermissions
 from .user_read import UserRead
 from .user_read_data import UserReadData
-from .user_roles import UserRoles
 from .user_update import UserUpdate
 from .user_update_data import UserUpdateData
+from .user_update_permissions import UserUpdatePermissions
 from .validation_error import ValidationError
 
 __all__ = (
@@ -60,10 +61,11 @@ __all__ = (
     "UserCreate",
     "UserCreateData",
     "UserFlag",
+    "UserPermissions",
     "UserRead",
     "UserReadData",
-    "UserRoles",
     "UserUpdate",
     "UserUpdateData",
+    "UserUpdatePermissions",
     "ValidationError",
 )
