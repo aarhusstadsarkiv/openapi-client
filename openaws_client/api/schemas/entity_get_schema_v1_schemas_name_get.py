@@ -4,7 +4,7 @@ from typing import Any, Dict, Optional, Union, cast
 import httpx
 
 from ... import errors
-from ...client import Client
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.schema_read import SchemaRead
 from ...types import UNSET, Response, Unset
@@ -13,9 +13,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     name: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
     version: Union[Unset, None, int] = UNSET,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/v1/schemas/{name}".format(client.base_url, name=name)
 
@@ -24,8 +23,6 @@ def _get_kwargs(
 
     params: Dict[str, Any] = {}
     params["version"] = version
-
-    params["user"] = user
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -73,16 +70,14 @@ def _build_response(
 def sync_detailed(
     name: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
     version: Union[Unset, None, int] = UNSET,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Response[Union[Any, HTTPValidationError, SchemaRead]]:
     """Entity:Get Schema
 
     Args:
         name (str):
         version (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -96,7 +91,6 @@ def sync_detailed(
         name=name,
         client=client,
         version=version,
-        user=user,
     )
 
     response = httpx.request(
@@ -110,16 +104,14 @@ def sync_detailed(
 def sync(
     name: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
     version: Union[Unset, None, int] = UNSET,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Optional[Union[Any, HTTPValidationError, SchemaRead]]:
     """Entity:Get Schema
 
     Args:
         name (str):
         version (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -133,23 +125,20 @@ def sync(
         name=name,
         client=client,
         version=version,
-        user=user,
     ).parsed
 
 
 async def asyncio_detailed(
     name: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
     version: Union[Unset, None, int] = UNSET,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Response[Union[Any, HTTPValidationError, SchemaRead]]:
     """Entity:Get Schema
 
     Args:
         name (str):
         version (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,7 +152,6 @@ async def asyncio_detailed(
         name=name,
         client=client,
         version=version,
-        user=user,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
@@ -175,16 +163,14 @@ async def asyncio_detailed(
 async def asyncio(
     name: str,
     *,
-    client: Client,
+    client: AuthenticatedClient,
     version: Union[Unset, None, int] = UNSET,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Optional[Union[Any, HTTPValidationError, SchemaRead]]:
     """Entity:Get Schema
 
     Args:
         name (str):
         version (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -199,6 +185,5 @@ async def asyncio(
             name=name,
             client=client,
             version=version,
-            user=user,
         )
     ).parsed

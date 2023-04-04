@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional, Union
 import httpx
 
 from ... import errors
-from ...client import Client
+from ...client import AuthenticatedClient, Client
 from ...models.http_validation_error import HTTPValidationError
 from ...models.schema_read import SchemaRead
 from ...types import UNSET, Response, Unset
@@ -12,10 +12,9 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    client: Client,
+    client: AuthenticatedClient,
     limit: Union[Unset, None, int] = 100,
     offset: Union[Unset, None, int] = 0,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/v1/schemas/".format(client.base_url)
 
@@ -26,8 +25,6 @@ def _get_kwargs(
     params["limit"] = limit
 
     params["offset"] = offset
-
-    params["user"] = user
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -76,17 +73,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Client,
+    client: AuthenticatedClient,
     limit: Union[Unset, None, int] = 100,
     offset: Union[Unset, None, int] = 0,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Response[Union[HTTPValidationError, List["SchemaRead"]]]:
     """Entity:Get Available Schemas
 
     Args:
         limit (Union[Unset, None, int]):  Default: 100.
         offset (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,7 +95,6 @@ def sync_detailed(
         client=client,
         limit=limit,
         offset=offset,
-        user=user,
     )
 
     response = httpx.request(
@@ -113,17 +107,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Client,
+    client: AuthenticatedClient,
     limit: Union[Unset, None, int] = 100,
     offset: Union[Unset, None, int] = 0,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Optional[Union[HTTPValidationError, List["SchemaRead"]]]:
     """Entity:Get Available Schemas
 
     Args:
         limit (Union[Unset, None, int]):  Default: 100.
         offset (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,23 +129,20 @@ def sync(
         client=client,
         limit=limit,
         offset=offset,
-        user=user,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
-    client: Client,
+    client: AuthenticatedClient,
     limit: Union[Unset, None, int] = 100,
     offset: Union[Unset, None, int] = 0,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Response[Union[HTTPValidationError, List["SchemaRead"]]]:
     """Entity:Get Available Schemas
 
     Args:
         limit (Union[Unset, None, int]):  Default: 100.
         offset (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -167,7 +156,6 @@ async def asyncio_detailed(
         client=client,
         limit=limit,
         offset=offset,
-        user=user,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
@@ -178,17 +166,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Client,
+    client: AuthenticatedClient,
     limit: Union[Unset, None, int] = 100,
     offset: Union[Unset, None, int] = 0,
-    user: Union[Unset, None, Any] = UNSET,
 ) -> Optional[Union[HTTPValidationError, List["SchemaRead"]]]:
     """Entity:Get Available Schemas
 
     Args:
         limit (Union[Unset, None, int]):  Default: 100.
         offset (Union[Unset, None, int]):
-        user (Union[Unset, None, Any]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -203,6 +189,5 @@ async def asyncio(
             client=client,
             limit=limit,
             offset=offset,
-            user=user,
         )
     ).parsed
