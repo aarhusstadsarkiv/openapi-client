@@ -1,3 +1,5 @@
+Client made using: [openapi-python-client](https://github.com/openapi-generators/openapi-python-client)
+
 # openaws-client
 A client library for accessing Stadsarkivet
 
