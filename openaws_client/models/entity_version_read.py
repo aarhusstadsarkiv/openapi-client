@@ -18,7 +18,7 @@ class EntityVersionRead:
         status (StatusFlag): To check if a user has a flag, use bitmasking:
 
             Maximum 64 bit because BigInt = 8 bytes, so we can only have 64 distinct flags.
-        schema (str):
+        schema_name (str):
         timestamp (datetime.datetime):
         updated_by_id (str):
         is_soft_deleted (bool):
@@ -28,7 +28,7 @@ class EntityVersionRead:
     id: int
     uuid: str
     status: StatusFlag
-    schema: str
+    schema_name: str
     timestamp: datetime.datetime
     updated_by_id: str
     is_soft_deleted: bool
@@ -40,7 +40,7 @@ class EntityVersionRead:
         uuid = self.uuid
         status = self.status.value
 
-        schema = self.schema
+        schema_name = self.schema_name
         timestamp = self.timestamp.isoformat()
 
         updated_by_id = self.updated_by_id
@@ -54,7 +54,7 @@ class EntityVersionRead:
                 "id": id,
                 "uuid": uuid,
                 "status": status,
-                "schema": schema,
+                "schema_name": schema_name,
                 "timestamp": timestamp,
                 "updated_by_id": updated_by_id,
                 "is_soft_deleted": is_soft_deleted,
@@ -73,7 +73,7 @@ class EntityVersionRead:
 
         status = StatusFlag(d.pop("status"))
 
-        schema = d.pop("schema")
+        schema_name = d.pop("schema_name")
 
         timestamp = isoparse(d.pop("timestamp"))
 
@@ -87,7 +87,7 @@ class EntityVersionRead:
             id=id,
             uuid=uuid,
             status=status,
-            schema=schema,
+            schema_name=schema_name,
             timestamp=timestamp,
             updated_by_id=updated_by_id,
             is_soft_deleted=is_soft_deleted,

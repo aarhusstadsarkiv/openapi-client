@@ -21,13 +21,13 @@ class EntityUpdate:
         status (Union[Unset, StatusFlag]): To check if a user has a flag, use bitmasking:
 
             Maximum 64 bit because BigInt = 8 bytes, so we can only have 64 distinct flags.
-        schema (Union[Unset, str]):
+        schema_name (Union[Unset, str]):
     """
 
     uuid: str
     data: Union["EntityUpdateDataType0", List[Any], Unset] = UNSET
     status: Union[Unset, StatusFlag] = UNSET
-    schema: Union[Unset, str] = UNSET
+    schema_name: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -52,7 +52,7 @@ class EntityUpdate:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-        schema = self.schema
+        schema_name = self.schema_name
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -65,8 +65,8 @@ class EntityUpdate:
             field_dict["data"] = data
         if status is not UNSET:
             field_dict["status"] = status
-        if schema is not UNSET:
-            field_dict["schema"] = schema
+        if schema_name is not UNSET:
+            field_dict["schema_name"] = schema_name
 
         return field_dict
 
@@ -108,13 +108,13 @@ class EntityUpdate:
         else:
             status = StatusFlag(_status)
 
-        schema = d.pop("schema", UNSET)
+        schema_name = d.pop("schema_name", UNSET)
 
         entity_update = cls(
             uuid=uuid,
             data=data,
             status=status,
-            schema=schema,
+            schema_name=schema_name,
         )
 
         entity_update.additional_properties = d

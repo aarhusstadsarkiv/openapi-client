@@ -4,52 +4,43 @@ from typing import Any, Dict, Optional, Union, cast
 import httpx
 
 from ... import errors
-from ...client import AuthenticatedClient, Client
-from ...models.entity_create import EntityCreate
-from ...models.entity_read import EntityRead
-from ...models.http_validation_error import HTTPValidationError
+from ...client import Client
+from ...models.records_search_records_v1_records_search_get_response_records_search_records_v1_records_search_get import (
+    RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet,
+)
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    client: AuthenticatedClient,
-    json_body: EntityCreate,
+    client: Client,
 ) -> Dict[str, Any]:
-    url = "{}/v1/entities/".format(client.base_url)
+    url = "{}/v1/records/search".format(client.base_url)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    json_json_body = json_body.to_dict()
-
     return {
-        "method": "post",
+        "method": "get",
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
-        "json": json_json_body,
     }
 
 
 def _parse_response(
     *, client: Client, response: httpx.Response
-) -> Optional[Union[Any, EntityRead, HTTPValidationError]]:
-    if response.status_code == HTTPStatus.CREATED:
-        response_201 = EntityRead.from_dict(response.json())
+) -> Optional[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]:
+    if response.status_code == HTTPStatus.OK:
+        response_200 = RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet.from_dict(
+            response.json()
+        )
 
-        return response_201
+        return response_200
     if response.status_code == HTTPStatus.BAD_REQUEST:
         response_400 = cast(Any, None)
         return response_400
-    if response.status_code == HTTPStatus.FORBIDDEN:
-        response_403 = cast(Any, None)
-        return response_403
-    if response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY:
-        response_422 = HTTPValidationError.from_dict(response.json())
-
-        return response_422
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(f"Unexpected status code: {response.status_code}")
     else:
@@ -58,7 +49,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Client, response: httpx.Response
-) -> Response[Union[Any, EntityRead, HTTPValidationError]]:
+) -> Response[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,26 +60,20 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient,
-    json_body: EntityCreate,
-) -> Response[Union[Any, EntityRead, HTTPValidationError]]:
-    """Entity:Create Entity
-
-    Args:
-        json_body (EntityCreate):  Example: {'data': {'label': 'My entity', 'title': 'My entity
-            title', 'from_date': '2020-01-01', 'to_date': '2020-01-01'}, 'schema_name': 'person_1'}.
+    client: Client,
+) -> Response[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]:
+    """Records:Search Records
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, EntityRead, HTTPValidationError]]
+        Response[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]
     """
 
     kwargs = _get_kwargs(
         client=client,
-        json_body=json_body,
     )
 
     response = httpx.request(
@@ -101,51 +86,39 @@ def sync_detailed(
 
 def sync(
     *,
-    client: AuthenticatedClient,
-    json_body: EntityCreate,
-) -> Optional[Union[Any, EntityRead, HTTPValidationError]]:
-    """Entity:Create Entity
-
-    Args:
-        json_body (EntityCreate):  Example: {'data': {'label': 'My entity', 'title': 'My entity
-            title', 'from_date': '2020-01-01', 'to_date': '2020-01-01'}, 'schema_name': 'person_1'}.
+    client: Client,
+) -> Optional[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]:
+    """Records:Search Records
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, EntityRead, HTTPValidationError]]
+        Response[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]
     """
 
     return sync_detailed(
         client=client,
-        json_body=json_body,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient,
-    json_body: EntityCreate,
-) -> Response[Union[Any, EntityRead, HTTPValidationError]]:
-    """Entity:Create Entity
-
-    Args:
-        json_body (EntityCreate):  Example: {'data': {'label': 'My entity', 'title': 'My entity
-            title', 'from_date': '2020-01-01', 'to_date': '2020-01-01'}, 'schema_name': 'person_1'}.
+    client: Client,
+) -> Response[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]:
+    """Records:Search Records
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, EntityRead, HTTPValidationError]]
+        Response[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]
     """
 
     kwargs = _get_kwargs(
         client=client,
-        json_body=json_body,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
@@ -156,26 +129,20 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: AuthenticatedClient,
-    json_body: EntityCreate,
-) -> Optional[Union[Any, EntityRead, HTTPValidationError]]:
-    """Entity:Create Entity
-
-    Args:
-        json_body (EntityCreate):  Example: {'data': {'label': 'My entity', 'title': 'My entity
-            title', 'from_date': '2020-01-01', 'to_date': '2020-01-01'}, 'schema_name': 'person_1'}.
+    client: Client,
+) -> Optional[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]:
+    """Records:Search Records
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, EntityRead, HTTPValidationError]]
+        Response[Union[Any, RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet]]
     """
 
     return (
         await asyncio_detailed(
             client=client,
-            json_body=json_body,
         )
     ).parsed

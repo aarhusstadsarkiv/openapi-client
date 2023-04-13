@@ -12,13 +12,17 @@ T = TypeVar("T", bound="EntityCreate")
 @attr.s(auto_attribs=True)
 class EntityCreate:
     """
+    Example:
+        {'data': {'label': 'My entity', 'title': 'My entity title', 'from_date': '2020-01-01', 'to_date': '2020-01-01'},
+            'schema_name': 'person_1'}
+
     Attributes:
         data (Union['EntityCreateDataType0', List[Any]]):
-        schema (str):
+        schema_name (str):
     """
 
     data: Union["EntityCreateDataType0", List[Any]]
-    schema: str
+    schema_name: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -32,14 +36,14 @@ class EntityCreate:
         else:
             data = self.data
 
-        schema = self.schema
+        schema_name = self.schema_name
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "data": data,
-                "schema": schema,
+                "schema_name": schema_name,
             }
         )
 
@@ -68,11 +72,11 @@ class EntityCreate:
 
         data = _parse_data(d.pop("data"))
 
-        schema = d.pop("schema")
+        schema_name = d.pop("schema_name")
 
         entity_create = cls(
             data=data,
-            schema=schema,
+            schema_name=schema_name,
         )
 
         entity_create.additional_properties = d

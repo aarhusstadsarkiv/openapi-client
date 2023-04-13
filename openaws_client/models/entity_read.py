@@ -16,9 +16,13 @@ T = TypeVar("T", bound="EntityRead")
 @attr.s(auto_attribs=True)
 class EntityRead:
     """
+    Example:
+        {'data': {'label': 'My entity', 'title': 'My entity title', 'from_date': '2020-01-01', 'to_date': '2020-01-01'},
+            'schema_name': 'person_1'}
+
     Attributes:
         data (Union['EntityReadDataType0', List[Any]]):
-        schema (str):
+        schema_name (str):
         id (int):
         uuid (str):
         status (StatusFlag): To check if a user has a flag, use bitmasking:
@@ -32,7 +36,7 @@ class EntityRead:
     """
 
     data: Union["EntityReadDataType0", List[Any]]
-    schema: str
+    schema_name: str
     id: int
     uuid: str
     status: StatusFlag
@@ -54,7 +58,7 @@ class EntityRead:
         else:
             data = self.data
 
-        schema = self.schema
+        schema_name = self.schema_name
         id = self.id
         uuid = self.uuid
         status = self.status.value
@@ -71,7 +75,7 @@ class EntityRead:
         field_dict.update(
             {
                 "data": data,
-                "schema": schema,
+                "schema_name": schema_name,
                 "id": id,
                 "uuid": uuid,
                 "status": status,
@@ -108,7 +112,7 @@ class EntityRead:
 
         data = _parse_data(d.pop("data"))
 
-        schema = d.pop("schema")
+        schema_name = d.pop("schema_name")
 
         id = d.pop("id")
 
@@ -128,7 +132,7 @@ class EntityRead:
 
         entity_read = cls(
             data=data,
-            schema=schema,
+            schema_name=schema_name,
             id=id,
             uuid=uuid,
             status=status,
