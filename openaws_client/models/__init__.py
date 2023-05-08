@@ -22,8 +22,8 @@ from .http_validation_error import HTTPValidationError
 from .records_get_record_v1_records_record_id_get_response_records_get_record_v1_records_record_id_get import (
     RecordsGetRecordV1RecordsRecordIdGetResponseRecordsGetRecordV1RecordsRecordIdGet,
 )
-from .records_search_records_v1_records_search_get_response_records_search_records_v1_records_search_get import (
-    RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet,
+from .records_search_records_v1_records_get_response_records_search_records_v1_records_get import (
+    RecordsSearchRecordsV1RecordsGetResponseRecordsSearchRecordsV1RecordsGet,
 )
 from .schema_create import SchemaCreate
 from .schema_create_data import SchemaCreateData
@@ -60,7 +60,7 @@ __all__ = (
     "ErrorModelDetailType1",
     "HTTPValidationError",
     "RecordsGetRecordV1RecordsRecordIdGetResponseRecordsGetRecordV1RecordsRecordIdGet",
-    "RecordsSearchRecordsV1RecordsSearchGetResponseRecordsSearchRecordsV1RecordsSearchGet",
+    "RecordsSearchRecordsV1RecordsGetResponseRecordsSearchRecordsV1RecordsGet",
     "SchemaCreate",
     "SchemaCreateData",
     "SchemaRead",

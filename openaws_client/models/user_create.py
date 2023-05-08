@@ -29,7 +29,7 @@ class UserCreate:
             Add a flag:
             >>> user.flags |= UserFlag.EMPLOYEE
             Remove a flag:
-            >>> user.flags &= ~UserFlag.EMPLOYEE
+            >>> user.flags &= ~UserFlag.EMPLOYEE.
 
             Maximum 64 bit because BigInt = 8 bytes, so we can only have 64 distinct flags.
     """

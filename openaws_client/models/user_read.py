@@ -18,6 +18,7 @@ class UserRead:
     """Base User model.
 
     Attributes:
+        id (str):
         email (str):
         data (UserReadData):
         permissions (UserPermissions):
@@ -26,26 +27,26 @@ class UserRead:
             Add a flag:
             >>> user.flags |= UserFlag.EMPLOYEE
             Remove a flag:
-            >>> user.flags &= ~UserFlag.EMPLOYEE
+            >>> user.flags &= ~UserFlag.EMPLOYEE.
 
             Maximum 64 bit because BigInt = 8 bytes, so we can only have 64 distinct flags.
-        id (Union[Unset, Any]):
         is_active (Union[Unset, bool]):  Default: True.
         is_superuser (Union[Unset, bool]):
         is_verified (Union[Unset, bool]):
     """
 
+    id: str
     email: str
     data: "UserReadData"
     permissions: "UserPermissions"
     flags: UserFlag
-    id: Union[Unset, Any] = UNSET
     is_active: Union[Unset, bool] = True
     is_superuser: Union[Unset, bool] = False
     is_verified: Union[Unset, bool] = False
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        id = self.id
         email = self.email
         data = self.data.to_dict()
 
@@ -53,7 +54,6 @@ class UserRead:
 
         flags = self.flags.value
 
-        id = self.id
         is_active = self.is_active
         is_superuser = self.is_superuser
         is_verified = self.is_verified
@@ -62,14 +62,13 @@ class UserRead:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "id": id,
                 "email": email,
                 "data": data,
                 "permissions": permissions,
                 "flags": flags,
             }
         )
-        if id is not UNSET:
-            field_dict["id"] = id
         if is_active is not UNSET:
             field_dict["is_active"] = is_active
         if is_superuser is not UNSET:
@@ -85,6 +84,8 @@ class UserRead:
         from ..models.user_read_data import UserReadData
 
         d = src_dict.copy()
+        id = d.pop("id")
+
         email = d.pop("email")
 
         data = UserReadData.from_dict(d.pop("data"))
@@ -93,8 +94,6 @@ class UserRead:
 
         flags = UserFlag(d.pop("flags"))
 
-        id = d.pop("id", UNSET)
-
         is_active = d.pop("is_active", UNSET)
 
         is_superuser = d.pop("is_superuser", UNSET)
@@ -102,11 +101,11 @@ class UserRead:
         is_verified = d.pop("is_verified", UNSET)
 
         user_read = cls(
+            id=id,
             email=email,
             data=data,
             permissions=permissions,
             flags=flags,
-            id=id,
             is_active=is_active,
             is_superuser=is_superuser,
             is_verified=is_verified,
