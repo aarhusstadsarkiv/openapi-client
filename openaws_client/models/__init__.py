@@ -31,7 +31,6 @@ from .schema_read import SchemaRead
 from .schema_read_data import SchemaReadData
 from .status_flag import StatusFlag
 from .user_create import UserCreate
-from .user_flag import UserFlag
 from .user_permissions import UserPermissions
 from .user_read import UserRead
 from .user_read_data import UserReadData
@@ -66,7 +65,6 @@ __all__ = (
     "SchemaReadData",
     "StatusFlag",
     "UserCreate",
-    "UserFlag",
     "UserPermissions",
     "UserRead",
     "UserReadData",

@@ -2,7 +2,6 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
-from ..models.user_flag import UserFlag
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -22,14 +21,6 @@ class UserRead:
         email (str):
         data (UserReadData):
         permissions (UserPermissions):
-        flags (UserFlag): To check if a user has a flag, use bitmasking:
-            >>> assert user.flags & UserFlag.EMPLOYEE
-            Add a flag:
-            >>> user.flags |= UserFlag.EMPLOYEE
-            Remove a flag:
-            >>> user.flags &= ~UserFlag.EMPLOYEE.
-
-            Maximum 64 bit because BigInt = 8 bytes, so we can only have 64 distinct flags.
         is_active (Union[Unset, bool]):  Default: True.
         is_superuser (Union[Unset, bool]):
         is_verified (Union[Unset, bool]):
@@ -39,7 +30,6 @@ class UserRead:
     email: str
     data: "UserReadData"
     permissions: "UserPermissions"
-    flags: UserFlag
     is_active: Union[Unset, bool] = True
     is_superuser: Union[Unset, bool] = False
     is_verified: Union[Unset, bool] = False
@@ -51,8 +41,6 @@ class UserRead:
         data = self.data.to_dict()
 
         permissions = self.permissions.to_dict()
-
-        flags = self.flags.value
 
         is_active = self.is_active
         is_superuser = self.is_superuser
@@ -66,7 +54,6 @@ class UserRead:
                 "email": email,
                 "data": data,
                 "permissions": permissions,
-                "flags": flags,
             }
         )
         if is_active is not UNSET:
@@ -92,8 +79,6 @@ class UserRead:
 
         permissions = UserPermissions.from_dict(d.pop("permissions"))
 
-        flags = UserFlag(d.pop("flags"))
-
         is_active = d.pop("is_active", UNSET)
 
         is_superuser = d.pop("is_superuser", UNSET)
@@ -105,7 +90,6 @@ class UserRead:
             email=email,
             data=data,
             permissions=permissions,
-            flags=flags,
             is_active=is_active,
             is_superuser=is_superuser,
             is_verified=is_verified,
