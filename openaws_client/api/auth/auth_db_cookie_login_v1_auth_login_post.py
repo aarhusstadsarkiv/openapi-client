@@ -27,7 +27,6 @@ def _get_kwargs(
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
-        "follow_redirects": client.follow_redirects,
         "data": form_data.to_dict(),
     }
 
@@ -47,7 +46,7 @@ def _parse_response(
 
         return response_422
     if client.raise_on_unexpected_status:
-        raise errors.UnexpectedStatus(response.status_code, response.content)
+        raise errors.UnexpectedStatus(f"Unexpected status code: {response.status_code}")
     else:
         return None
 
@@ -103,7 +102,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ErrorModel, HTTPValidationError]
+        Response[Union[Any, ErrorModel, HTTPValidationError]]
     """
 
     return sync_detailed(
@@ -150,7 +149,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ErrorModel, HTTPValidationError]
+        Response[Union[Any, ErrorModel, HTTPValidationError]]
     """
 
     return (
