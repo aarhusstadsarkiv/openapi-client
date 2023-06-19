@@ -1,4 +1,19 @@
-Client made using: [openapi-python-client](https://github.com/openapi-generators/openapi-python-client) and [openaws-client-generator](https://github.com/aarhusstadsarkiv/openaws-client-generator)
+
+
+# About
+
+Client made using: [openapi-python-client](https://github.com/openapi-generators/openapi-python-client) and 
+[openaws-client-generator](https://github.com/aarhusstadsarkiv/openaws-client-generator)
+
+## Install or update the client
+
+    pip uninstall -y openaws-client                                                                                         
+    pip install git+https://github.com/aarhusstadsarkiv/openaws-client@main
+
+Or if you have a specific tag:
+
+    pip install git+https://github.com/aarhusstadsarkiv/openaws-client@v0.7.0
+
 
 # openaws-client
 A client library for accessing Stadsarkivet
